@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tax AI Assistance</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<style>
+body { background: #f0f2f5; font-family: Arial, sans-serif; padding: 20px; }
+.chat-container { max-width: 600px; margin: auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 20px; }
+.chat-box { border: 1px solid #ccc; border-radius: 8px; padding: 10px; height: 400px; overflow-y: auto; margin-bottom: 10px; background: #f8f9fa; }
+.user-msg { text-align: right; color: white; background: #0d6efd; display: inline-block; padding: 8px 12px; border-radius: 12px; margin: 5px 0; max-width: 80%; word-wrap: break-word; }
+.ai-msg { text-align: left; background: #e9ecef; display: inline-block; padding: 8px 12px; border-radius: 12px; margin: 5px 0; max-width: 80%; word-wrap: break-word; }
+.chat-input { display: flex; gap: 10px; }
+.chat-input input { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+.chat-input button { padding: 10px 20px; }
+</style>
+</head>
+<body>
+    <a href="index.html" class="text-decoration-none text-primary d-inline-flex align-items-center mb-3">
+  <span style="font-size: 24px;">←</span>
+  <span class="ms-2">Retun to Home</span>
+</a>
+
+
+<div class="chat-container">
+  <h3 class="text-center text-primary mb-3">Tax AI Assistance</h3>
+  <div class="chat-box" id="chatBox">
+    <p class="ai-msg">Hello! Ask me anything about Nigeria’s 2026 tax reforms.</p>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="chatInput" placeholder="Type your question...">
+    <button class="btn btn-primary" id="sendBtn">Send</button>
+  </div>
+</div>
+
+<script>
+const chatBox = document.getElementById('chatBox');
+const chatInput = document.getElementById('chatInput');
+const sendBtn = document.getElementById('sendBtn');
+
+function addMessage(message, type) {
+    const p = document.createElement('p');
+    p.className = type === 'user' ? 'user-msg' : 'ai-msg';
+    p.innerText = message;
+    chatBox.appendChild(p);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+async function sendQuestion() {
+    const question = chatInput.value.trim();
+    if (!question) return;
+
+    addMessage(question, 'user');
+    chatInput.value = '';
+
+    try {
+        const response = await fetch('/ask-ai', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question })
+        });
+
+        const data = await response.json();
+        if (data.answer) {
+            addMessage(data.answer, 'ai');
+        } else {
+            addMessage("AI is currently unavailable. Please try again later.", 'ai');
+        }
+    } catch (err) {
+        console.error(err);
+        addMessage("AI is currently unavailable. Please try again later.", 'ai');
+    }
+}
+
+sendBtn.addEventListener('click', sendQuestion);
+chatInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') sendQuestion();
+});
+</script>
+
+</body>
+</html>
