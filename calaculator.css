@@ -1,0 +1,50 @@
+*{
+    padding: 0%;
+}
+
+.container{
+    padding: 20px;
+    border: 30px;
+    background-color: white;
+    box-shadow: 50px;
+    border-radius: 30px;
+}
+h1{
+    color: blue;
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: 20px;
+    margin-left: 40px;
+    text-shadow: 30px;
+}
+p{
+    
+     margin-left: 40px;
+     font-family: 'Times New Roman', Times, serif;
+}
+.taxForm{
+  box-sizing: 30px;  
+}
+h5{
+    color: blue;
+    font-family: 'Times New Roman', Times, serif;
+    margin-left: 20px;
+}
+.btn-calc{
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    border: 20px;
+    align-content: center;
+}
+.btn-calc:hover{
+    background-color: #0b5ed7;
+      color: #fff;
+}
+/* .btn-calc{
+    max-width: 100px;
+      color: white;
+      padding: 30px;
+      border-radius: 10px;
+      background-color: blue;
+      align-content: center;
+      /* box-shadow: 0 4px 15px rgba(0,0,0,0.1); */

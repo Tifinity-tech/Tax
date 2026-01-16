@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="calaculator.css">
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="text-decoration-none text-primary d-inline-flex align-items-center mb-3">
+  <span style="font-size: 24px;">←</span>
+  <span class="ms-2">Return to Home</span>
+</a>
+
+
+    <h1><strong>Calculate Your 2026 Tax</strong></h1>
+    <p>Enter your income and deduction details below. All calculation are baded on the 2026 Nigeria’s tax reforms</p>
+    <form class="taxForm">
+      <!-- personal information -->
+      <h5>Income Information</h5>
+      <div class="mb-3">
+        <label for="monthlyIncome" class="form-label">Monthly Gross Income (₦)</label>
+        <input type="number" class="form-control" id="monthlyIncome" placeholder="Enter your monthly income" required>
+    </div>
+    <div class="mb-3">
+      <label for="additionalIncome" class="form-label">Additional Monthly Income (₦)</label>
+      <input type="number" class="form-control" id="additionalIncome" placeholder="Any extra income">
+    </div>
+    
+    <h5>Tax Reliefs & Deductions</h5>
+    <div class="mb-3">
+      <label for="pension" class="form-label">Annual Pension Contribution (₦)</label>
+      <input type="number" class="form-control" id="pension" placeholder="Enter pension contribution">
+    </div>
+    <div class="mb-3">
+      <label for="nhf" class="form-label">Annual NHF Contribution (₦)</label>
+      <input type="number" class="form-control" id="nhf" placeholder="Enter NHF contribution">
+    </div>
+    <div class="mb-3">
+      <label for="rent" class="form-label">Annual Rent Paid (₦)</label>
+      <input type="number" class="form-control" id="rent" placeholder="Enter annual rent">
+    </div>
+    <div class="mb-3">
+      <label for="insurance" class="form-label">Life Insurance Premiums (₦)</label>
+      <input type="number" class="form-control" id="insurance" placeholder="Enter insurance premiums">
+    </div>
+    
+    <button type="button" class="btn btn-calc" onclick="calculateTax()">See My Tax Breakdown</button>
+  
+</form>
+<!-- Tax Result -->
+  <div id="result" class="result-box text-center" style="display:none;">
+    <h5>Your Estimated Tax</h5>
+    <p id="taxAmount">₦0</p>
+  </div>
+</div>
+<script>
+    function calculateTax() {
+      const monthlyIncome = parseFloat(document.getElementById('monthlyIncome').value) || 0;
+      const additionalIncome = parseFloat(document.getElementById('additionalIncome').value) || 0;
+      const pension = parseFloat(document.getElementById('pension').value) || 0;
+      const nhf = parseFloat(document.getElementById('nhf').value) || 0;
+      const rent = parseFloat(document.getElementById('rent').value) || 0;
+      const insurance = parseFloat(document.getElementById('insurance').value) || 0;
+
+      // Send all input values to result page
+      const query = `?monthlyIncome=${monthlyIncome}&additionalIncome=${additionalIncome}&pension=${pension}&nhf=${nhf}&rent=${rent}&insurance=${insurance}`;
+      window.location.href = 'result.html' + query;
+    }
+  </script>
+</body>
+</html>
