@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tax AI Assistance</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="tax-ai.css">
+<style>
+
+
+</style>
+</head>
+<body>
+    
+    
+    <div class="chat-container">
+    <a href="index.html" class="text-return ">
+   
+  <span style="font-size: 24px;">←</span>
+  <span class="ms-2">Return to Home</span>
+</a>
+  <h3 class="text-heading">Tax AI Assistance</h3>
+  <div class="chat-box" id="chatBox">
+    <p class="ai-msg">Hello! Ask me anything about Nigeria’s 2026 tax reforms.</p>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="chatInput" placeholder="Type your question...">
+    <button class="btn" id="sendBtn">Send</button>
+  </div>
+</div>
+
+<script>
+const chatBox = document.getElementById('chatBox');
+const chatInput = document.getElementById('chatInput');
+const sendBtn = document.getElementById('sendBtn');
+
+function addMessage(message, type) {
+    const p = document.createElement('p');
+    p.className = type === 'user' ? 'user-msg' : 'ai-msg';
+    p.innerText = message;
+    chatBox.appendChild(p);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+async function sendQuestion() {
+    const question = chatInput.value.trim();
+    if (!question) return;
+
+    addMessage(question, 'user');
+    chatInput.value = '';
+
+    try {
+        const response = await fetch('/ask-ai', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question })
+        });
+
+        const data = await response.json();
+        if (data.answer) {
+            addMessage(data.answer, 'ai');
+        } else {
+            addMessage("AI is currently unavailable. Please try again later.", 'ai');
+        }
+    } catch (err) {
+        console.error(err);
+        addMessage("AI is currently unavailable. Please try again later.", 'ai');
+    }
+}
+
+sendBtn.addEventListener('click', sendQuestion);
+chatInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') sendQuestion();
+});
+</script>
+
+</body>
+</html>

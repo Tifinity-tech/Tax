@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 Nigeria Tax Calculator</title>
+  <!-- Offline Bootstrap CSS -->
+  <link href="css/bootstrap.min" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .calculator-card {
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .btn-calc {
+      background-color: #0d6efd;
+      color: #fff;
+    }
+    .btn-calc:hover {
+      background-color: #0b5ed7;
+      color: #fff;
+    }
+    .result-box {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      background-color: #e9ecef;
+    }
+  </style>
+</head>
+<body>
+
+<div class="calculator-card">
+  <h2 class="text-center">Calculate Your 2026 Tax</h2>
+  
+  <form id="taxForm">
+    <!-- Income Section -->
+    <h5>Income Information</h5>
+    <div class="mb-3">
+      <label for="monthlyIncome" class="form-label">Monthly Gross Income (₦)</label>
+      <input type="number" class="form-control" id="monthlyIncome" placeholder="Enter your monthly income" required>
+    </div>
+    <div class="mb-3">
+      <label for="additionalIncome" class="form-label">Additional Monthly Income (₦)</label>
+      <input type="number" class="form-control" id="additionalIncome" placeholder="Any extra income">
+    </div>
+
+    <!-- Reliefs & Deductions -->
+    <h5>Tax Reliefs & Deductions</h5>
+    <div class="mb-3">
+      <label for="pension" class="form-label">Annual Pension Contribution (₦)</label>
+      <input type="number" class="form-control" id="pension" placeholder="Enter pension contribution">
+    </div>
+    <div class="mb-3">
+      <label for="nhf" class="form-label">Annual NHF Contribution (₦)</label>
+      <input type="number" class="form-control" id="nhf" placeholder="Enter NHF contribution">
+    </div>
+    <div class="mb-3">
+      <label for="rent" class="form-label">Annual Rent Paid (₦)</label>
+      <input type="number" class="form-control" id="rent" placeholder="Enter annual rent">
+    </div>
+    <div class="mb-3">
+      <label for="insurance" class="form-label">Life Insurance Premiums (₦)</label>
+      <input type="number" class="form-control" id="insurance" placeholder="Enter insurance premiums">
+    </div>
+
+    <button type="button" class="btn btn-calc w-100" onclick="calculateTax()">See My Tax Breakdown</button>
+  </form>
+
+  <!-- Tax Result -->
+  <div id="result" class="result-box text-center" style="display:none;">
+    <h5>Your Estimated Tax</h5>
+    <p id="taxAmount">₦0</p>
+  </div>
+</div>
+
+<!-- Offline Bootstrap JS -->
+<script src="js/bootstrap.bundle.min.js"></script>
+
+<script>
+function calculateTax() {
+  // Get values
+  let monthlyIncome = parseFloat(document.getElementById('monthlyIncome').value) || 0;
+  let additionalIncome = parseFloat(document.getElementById('additionalIncome').value) || 0;
+  let pension = parseFloat(document.getElementById('pension').value) || 0;
+  let nhf = parseFloat(document.getElementById('nhf').value) || 0;
+  let rent = parseFloat(document.getElementById('rent').value) || 0;
+  let insurance = parseFloat(document.getElementById('insurance').value) || 0;
+
+  // Annual income
+  let annualIncome = (monthlyIncome + additionalIncome) * 12;
+
+  // Rent relief capped at 20% of rent or 500,000
+  let rentRelief = Math.min(rent * 0.2, 500000);
+
+  // Taxable income
+  let taxableIncome = annualIncome - pension - nhf - rentRelief - insurance;
+
+  // Minimum threshold
+  if(taxableIncome <= 800000) {
+    taxableIncome = 0;
+  }
+
+  // 2026 Tax Bands
+  let tax = 0;
+  let remaining = taxableIncome;
+
+  const bands = [
+    {limit: 800000, rate: 0},
+    {limit: 3000000, rate: 0.15},
+    {limit: 12000000, rate: 0.18},
+    {limit: 25000000, rate: 0.21},
+    {limit: 50000000, rate: 0.23},
+    {limit: Infinity, rate: 0.25}
+  ];
+
+  let lowerLimit = 0;
+  for(const band of bands){
+    if(remaining <= 0) break;
+    let taxableInBand = Math.min(remaining, band.limit - lowerLimit);
+    tax += taxableInBand * band.rate;
+    remaining -= taxableInBand;
+    lowerLimit = band.limit;
+  }
+
+  // Display result
+  document.getElementById('taxAmount').innerText = '₦' + tax.toLocaleString();
+  document.getElementById('result').style.display = 'block';
+}
+</script>
+
+</body>
+</html>

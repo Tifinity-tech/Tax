@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 Tax Breakdown</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="result.css">
+</head>
+
+<body>
+
+<div class="container">
+  <a href="index.html" class="returnIcon">
+    <!-- text-decoration-none text-primary d-inline-flex align-items-center mb-3 -->
+  <span style="font-size: 24px;">←</span>
+  <span class="ms-2">Return to Home</span>
+</a>
+
+  <div class="result-box">
+
+    <!-- TITLE + TEXT BELOW -->
+    <h2 class="Breakdown-text"><strong>Your 2026 Tax Breakdown</strong></h2>
+    <p class="text-center description-text">Based on Nigeria’s 2026 tax reform regulations</p>
+
+    <!-- SUMMARY BOXES -->
+    <div class="row g-3 text-center mt-4">
+
+      <div class="col-6 col-md-3">
+        <div class="summary-box">
+          <p>Gross Income</p>
+          <strong id="grossIncome">₦0</strong>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="summary-box">
+          <p>Total Deductions</p>
+          <strong id="totalDeductions">₦0</strong>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="summary-box">
+          <p>Tax Owed</p>
+          <strong id="taxOwed">₦0</strong>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="summary-box">
+          <p>Effective Tax Rate</p>
+          <strong id="effectiveTaxRate">0%</strong>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CHARTS -->
+    <div class="row mt-5 g-4">
+
+      <!-- PIE CHART -->
+      <div class="col-12 col-md-6">
+        <div class="chart-box">
+          <h5 class="Income-text">Income Distribution</h5>
+          <canvas id="incomePieChart"></canvas>
+        </div>
+      </div>
+
+      <!-- BAR CHART -->
+      <div class="col-12 col-md-6">
+        <div class="chart-box">
+          <h5 class="Deductions-text">Deductions Breakdown</h5>
+          <canvas id="deductionsBarChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAX FLOW -->
+    <h5 class="calculator-flow">Tax Calculation Flow</h5>
+    <p>Gross Annual Income: <strong id="flowGrossIncome">₦0</strong></p>
+    <p>Taxable Income: <strong id="flowTaxableIncome">₦0</strong></p>
+    <p>Tax Owed: <strong id="flowTaxOwed">₦0</strong></p>
+
+    <a href="calculator.html" class="btn">Back to Calculator</a>
+
+  </div>
+</div>
+
+<!-- Chart.js -->
+<script src="js/chart.min.js"></script>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+
+  const monthlyIncome = Number(params.get('monthlyIncome')) || 0;
+  const additionalIncome = Number(params.get('additionalIncome')) || 0;
+  const pension = Number(params.get('pension')) || 0;
+  const nhf = Number(params.get('nhf')) || 0;
+  const rent = Number(params.get('rent')) || 0;
+  const insurance = Number(params.get('insurance')) || 0;
+
+  const annualIncome = (monthlyIncome + additionalIncome) * 12;
+  const totalDeductions = pension + nhf + rent + insurance;
+  const taxableIncome = Math.max(annualIncome - totalDeductions, 0);
+
+  const bands = [
+    { limit: 800000, rate: 0 },
+    { limit: 3000000, rate: 0.15 },
+    { limit: 12000000, rate: 0.18 },
+    { limit: 25000000, rate: 0.21 },
+    { limit: 50000000, rate: 0.23 },
+    { limit: Infinity, rate: 0.25 }
+  ];
+
+  let tax = 0;
+  let remaining = taxableIncome;
+  let lowerLimit = 0;
+
+  for (const band of bands) {
+    if (remaining <= 0) break;
+    const taxableInBand = Math.min(remaining, band.limit - lowerLimit);
+    tax += taxableInBand * band.rate;
+    remaining -= taxableInBand;
+    lowerLimit = band.limit;
+  }
+
+  const afterTaxIncome = taxableIncome - tax;
+  const effectiveTaxRate = taxableIncome ? ((tax / taxableIncome) * 100).toFixed(2) : 0;
+
+  document.getElementById('grossIncome').innerText = `₦${annualIncome.toLocaleString()}`;
+  document.getElementById('totalDeductions').innerText = `₦${totalDeductions.toLocaleString()}`;
+  document.getElementById('taxOwed').innerText = `₦${tax.toLocaleString()}`;
+  document.getElementById('effectiveTaxRate').innerText = `${effectiveTaxRate}%`;
+
+  document.getElementById('flowGrossIncome').innerText = `₦${annualIncome.toLocaleString()}`;
+  document.getElementById('flowTaxableIncome').innerText = `₦${taxableIncome.toLocaleString()}`;
+  document.getElementById('flowTaxOwed').innerText = `₦${tax.toLocaleString()}`;
+
+  new Chart(document.getElementById('incomePieChart'), {
+    type: 'pie',
+    data: {
+      labels: ['Tax Owed', 'After-Tax Income'],
+      datasets: [{
+        data: [tax, afterTaxIncome],
+        backgroundColor: ['grey', 'blue']
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  });
+
+  new Chart(document.getElementById('deductionsBarChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Pension', 'NHF', 'Rent', 'Insurance'],
+      datasets: [{
+        label: 'Amount (₦)',
+        data: [pension, nhf, rent, insurance],
+        backgroundColor: 'blue'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

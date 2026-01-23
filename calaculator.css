@@ -1,0 +1,119 @@
+*{
+    padding: 0%;
+}
+
+.container{
+    padding: 20px;
+    border: 30px;
+    background-color: white;
+    box-shadow: 50px;
+    border-radius: 30px;
+}
+h1{
+    color: blue;
+    font-family: sans-serif;
+    text-shadow: 30px;
+}
+.Return{
+text-decoration: none;
+color: blue;
+
+}
+.Return-text{
+    color: blue;
+    margin-left: 10px;
+    
+}
+p{
+     font-family: sans-serif;
+     color: blue;
+}
+.taxForm{
+  box-sizing: 30px;  
+}
+h5{
+    color: blue;
+    font-family: sans-serif;
+}
+.incomeContainer{
+    padding: 20px 40px;
+    background-color: white;
+    border-radius: 12px;
+    outline-color: blue;
+    outline-width: 20px;
+    outline: 0.5px solid rgb(138, 138, 232);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+.calaculatorBox{
+    background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  max-width: 1000px;
+  margin: auto;
+}
+.form-control{
+    color: blue;
+}
+
+.btn-calc{
+    background-color: blue;
+    margin-top: 20px;
+    color: white;
+    padding: 5px 150px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    color: white;
+    border-radius: 12px;
+    outline-color: blue;
+    outline-width: 20px;
+    outline: 0.5px solid rgb(138, 138, 232);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    flex-direction: column;
+    align-items: center;
+
+}
+.form-label{
+    color: blue;
+    
+}
+.Tax-Relief-Conatiner{
+    padding: 20px 40px;
+    background-color: white;
+    border-radius: 12px;
+    outline-color: blue;
+    outline-width: 20px;
+    outline: 0.5px solid rgb(138, 138, 232);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+/* .btn-calc{
+    max-width: 100px;
+      color: white;
+      padding: 30px;
+      border-radius: 10px;
+      background-color: blue;
+      align-content: center;
+      /* box-shadow: 0 4px 15px rgba(0,0,0,0.1); */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 30px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+    .btn-calc{
+        padding: 5px  100px;
+    }
+    h1{
+        font-size: 25px;
+    }
+
+    
+}
