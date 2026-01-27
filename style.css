@@ -1,7 +1,7 @@
+/* Global Styles */
 body {
     background-color: white;
     font-family: sans-serif;
-    
 }
 
 /* Hero Section */
@@ -11,19 +11,17 @@ body {
     background-color: white;
 }
 
-/* Headings */
+/* Headings & Text */
 h1 {
     text-align: center;
     font-size: 40px;
     color: blue;
-    font-family: sans-serif;
 }
 
 p {
     color: blue;
     text-align: center;
     font-size: 16px;
-    font-family: sans-serif;
 }
 
 /* Buttons */
@@ -35,36 +33,47 @@ p {
     flex-wrap: wrap;
 }
 
-.btn-main {
-    background-color: blue;
-    color: white;
-    padding: 10px 150px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    border-radius: 12px;
-    
-}
-
-.btn-main:hover {
-    background-color: blue;
-    color: white;
-    
-}
-
+/* Main Buttons */
+.btn-main,
+.btn-main2,
 .btn-outline-primary {
-    padding: 10px 140px;
+    padding: 12px 24px;
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     border-radius: 12px;
-    color: blue;
-
+    font-size: 16px;
 }
-.fa-lock{
+
+/* Filled Button */
+.btn-main,
+.btn-main2 {
+    background-color: blue;
+    color: white;
+    border: none;
+}
+
+.btn-main:hover,
+.btn-main2:hover {
+    background-color: #003dcc;
+}
+
+/* Outline Button */
+.btn-outline-primary {
+    background-color: white;
+    color: blue;
+    border: 1px solid blue;
+}
+
+/* Icons */
+.fa-lock {
     background-color: rgb(230, 227, 240);
     padding: 10px;
-    border-radius: 30px;
+    border-radius: 50%;
 }
 
-
-/* Info Cards */
+/* Info Section */
 .info-section {
     margin-top: 40px;
 }
@@ -74,100 +83,78 @@ p {
     padding: 20px 40px;
     background-color: white;
     border-radius: 12px;
-    outline-color: blue;
-    outline-width: 20px;
     outline: 1px solid blue;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: flex;
     flex-direction: column;
     align-items: center;
-
-    
 }
-/* background-color: white;
-    border-radius: 8px;
-    padding: 10px 20px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    border-radius: 12px;
-    outline-color: blue;
-    outline-width: 20px;
-    flex-direction: column;
-    align-items: center;
-    outline: 1px solid blue; */
 
+/* Info Text */
 .text1,
 .text11 {
     color: blue;
     font-size: 18px;
-   font-family: sans-serif;
-   text-align: center;
+    text-align: center;
 }
+
 .text2,
 .text22 {
     color: blue;
     font-size: 16px;
-    font-family: sans-serif;
     text-align: center;
-    
-    
-}
-.text3{
-    color: blue;
-    font-family: sans-serif;
-    font-size: 25px;
 }
 
+.text3 {
+    color: blue;
+    font-size: 25px;
+    text-align: center;
+}
 
 /* Calculate Section */
 .Calculate-container {
-    /* background-color: rgb(159, 216, 255); */
-   background-color: #EAF2FF;
-    border-radius: 20px;
+    background-color: #EAF2FF;
     padding: 40px;
     margin-top: 40px;
-     border-radius: 12px;
-    outline-color: blue;
-    outline-width: 20px;
+    border-radius: 12px;
     outline: 1px solid blue;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    flex-direction: column;
-    align-items: center;
-    
 }
+
+/* Icons Wrap */
 .icon-wrap1 {
-  width: 30px;
-  height: 30px;
-  background-color: #EAF2FF;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 14px;
+    width: 30px;
+    height: 30px;
+    background-color: #EAF2FF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
 }
 
 .icon-wrap1 i {
-  font-size: 18px;
-  color: blue;
-  line-height: 1;
+    font-size: 18px;
+    color: blue;
 }
 
 .icon-wrap {
-  width: 30px;
-  height: 30px;
-  background-color: #dffcea;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 14px;
+    width: 30px;
+    height: 30px;
+    background-color: #dffcea;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
 }
 
 .icon-wrap i {
-  font-size: 20px;
-  color: #22C55E;
+    font-size: 20px;
+    color: #22C55E;
 }
 
-
+/* Calculate Button */
 .btn-calculate {
     background-color: blue;
     color: white;
@@ -175,51 +162,49 @@ p {
     display: block;
     margin: 20px auto;
     border-radius: 15px;
-}
-.disclaimer {
-  font-size: 14px;
-  color: blue; 
-  text-align: left;
-  margin: 40px 20px;
-  line-height: 1.6;
+    font-size: 16px;
 }
 
+/* Disclaimer */
+.disclaimer {
+    font-size: 14px;
+    color: blue;
+    text-align: left;
+    margin: 40px 20px;
+    line-height: 1.6;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
     h1 {
-        font-size: 30px;
+        font-size: 26px;
     }
 
     p {
-        font-size: 11px;
+        font-size: 14px;
     }
-    .text2{
-        font-size: 7px;
-        text-align: center;
+
+    .text1,
+    .text11 {
+        font-size: 15px;
     }
-    .text22{
-        font-size: 7px;
+
+    .text2,
+    .text22 {
+        font-size: 13px;
     }
+
+    .text3 {
+        font-size: 18px;
+    }
+
     .btn-container {
         flex-direction: column;
         align-items: center;
     }
-    .textContainer1{
-        padding: 15px 150px;
-        flex-direction: column;
-        align-items: center;
-    }
-    .textContainer2{
-        padding: 15px 150px;
-    }
-    .text1{
-        font-size: 14px;
-    }
-    .text11{
-        font-size: 14px;
-    }
-    .text3{
-        font-size: 20px;
+
+    .textContainer1,
+    .textContainer2 {
+        padding: 15px 20px;
     }
 }
